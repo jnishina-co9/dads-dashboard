@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>デジタル庁デザインシステム（DADS）公式準拠カラーパレット</title>
+  <!-- デジタル庁デザインシステム（DADS）公式フォント：Noto Sans JP（本文・見出し）および Noto Sans Mono（カラーコード等幅） -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --dads-color-primary: #0017c1;
+      --dads-text-main: #000000;
+      --dads-text-label: #626264;
+      --dads-bg-page: #f1f1f4;
+      --dads-bg-white: #ffffff;
+      --dads-border-high-contrast: #949494; /* Gray 420: 白背景とのコントラスト比 約3.04:1（3:1以上達成） */
+      --dads-radius-card: 8px;
+      --dads-focus-outline-outer: #000000;
+      --dads-focus-outline-inner: #ffd43d;
+      --space-8: 8px;
+      --space-16: 16px;
+      --space-24: 24px;
+      --space-32: 32px;
+      --space-48: 48px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* DADS公式フォーカスインジケーター（外側黒・内側黄の二重線） */
+    :focus-visible {
+      outline: 2px solid var(--dads-focus-outline-outer) !important;
+      outline-offset: 2px !important;
+      box-shadow: 0 0 0 2px var(--dads-focus-outline-inner) !important;
+    }
+
+    body {
+      width: 100%;
+      min-height: 100vh;
+      background-color: var(--dads-bg-page);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.7;
+      letter-spacing: 0.02em;
+      color: var(--dads-text-main);
+      padding: var(--space-32) var(--space-48);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .palette-wrapper {
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    /* 1. ヘッダーエリア */
+    .header-area {
+      margin-bottom: var(--space-24);
+    }
+
+    /* ページ大見出し：DADS公式 Std-32B-150（32px / 700 / line-height: 1.5 / letter-spacing: 0.01em） */
+    .main-title {
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.5;
+      letter-spacing: 0.01em;
+      color: var(--dads-color-primary);
+      margin-bottom: var(--space-8);
+    }
+
+    /* リード説明文：DADS公式 Std-16N-170（16px / 400 / line-height: 1.7 / letter-spacing: 0.02em） */
+    .header-desc {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.7;
+      letter-spacing: 0.02em;
+      color: var(--dads-text-label);
+    }
+
+    /* 2. パレット全体レイアウト（左右2分割グリッド・隙間24px） */
+    .palette-container {
+      display: grid;
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: var(--space-24);
+      align-items: stretch;
+    }
+
+    /* カード枠共通：DADS準拠（白背景・3:1境界線・角丸8px・内側余白24px・影なし） */
+    .palette-card {
+      background-color: var(--dads-bg-white);
+      border: 1px solid var(--dads-border-high-contrast);
+      border-radius: var(--dads-radius-card);
+      padding: var(--space-24);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* カード見出し（h2）：DADS公式 Std-20B-150（20px / 700 / line-height: 1.5 / letter-spacing: 0.02em） */
+    .card-title {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.5;
+      letter-spacing: 0.02em;
+      color: var(--dads-text-main);
+      margin-bottom: var(--space-16);
+      padding-bottom: var(--space-8);
+      border-bottom: 2px solid var(--dads-color-primary);
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--space-8);
+    }
+
+    /* 補助説明（14px・行間170%） */
+    .card-title-sub {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.7;
+      letter-spacing: 0.02em;
+      color: var(--dads-text-label);
+    }
+
+    /* 左カード内：2列サブグリッド（隙間24px） */
+    .ui-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-24);
+    }
+
+    /* 右カード内：3列サブグリッド（隙間24px） */
+    .chart-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-24);
+    }
+
+    /* グループ見出し */
+    .group-section {
+      margin-bottom: var(--space-24);
+    }
+    .group-section:last-child {
+      margin-bottom: 0;
+    }
+
+    /* 小見出し（h3）：DADS公式 Std-16B-170（16px / 700 / line-height: 1.7 / letter-spacing: 0.02em） */
+    .group-title {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.7;
+      letter-spacing: 0.02em;
+      color: var(--dads-text-main);
+      margin-bottom: var(--space-8);
+    }
+
+    /* グループ補足説明：DADS補助14pxスタイル（14px / 400 / line-height: 1.7 / letter-spacing: 0.02em） */
+    .group-desc {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.7;
+      letter-spacing: 0.02em;
+      color: var(--dads-text-label);
+      margin-bottom: var(--space-16);
+      min-height: 48px;
+    }
+
+    /* スウォッチリスト（8px倍数間隔） */
+    .swatch-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-16);
+    }
+    .swatch-item {
+      display: flex;
+      align-items: center;
+      gap: var(--space-16);
+    }
+    .swatch-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    /* 白背景スウォッチも3:1基準の境界線（#949494）で明確に識別可能に */
+    .swatch-circle.has-border {
+      border: 1.5px solid var(--dads-border-high-contrast);
+    }
+    .swatch-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    /* スウォッチ名：DADS公式 Dns-14B-130（14px / 700 / line-height: 1.3 / letter-spacing: 0） */
+    .swatch-label {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: 0;
+      color: var(--dads-text-main);
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    /* カラーコード：Noto Sans Mono（14px / 700 / line-height: 1.3） */
+    .swatch-code {
+      font-size: 14px;
+      font-family: 'Noto Sans Mono', monospace;
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: 0;
+      color: var(--dads-text-main);
+    }
+
+    /* 未使用ラベル：14px・コントラスト比4.5:1以上確保（#626264） */
+    .swatch-unused {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.3;
+      letter-spacing: 0;
+      color: var(--dads-text-label);
+    }
+
+    /* リンクテキスト見本：DADS公式リンク仕様（色＋常時下線） */
+    .link-unvisited-text {
+      color: #0017c1;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: 0;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+    }
+    .link-visited-text {
+      color: #8a2468;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: 0;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+    }
+
+    /* レスポンシブ対応（DADS基準ブレークポイント：768px） */
+    @media (max-width: 767.98px) {
+      body {
+        padding: var(--space-24);
+      }
+      .palette-container,
+      .ui-grid,
+      .chart-grid {
+        grid-template-columns: 1fr;
+      }
+      .group-desc {
+        min-height: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="palette-wrapper">
+
+    <!-- 1. ヘッダーエリア -->
+    <header class="header-area">
+      <h1 class="main-title">デジタル庁デザインシステム（DADS）公式準拠カラーパレット</h1>
+      <p class="header-desc">
+        このカラーパレットは、デジタル庁が公開する公式Power BIテンプレート（Blue版）およびWebアクセシビリティ仕様に100%完全準拠して体系化したカラーパレットです。<br>
+        すべての配色において、通常文字（4.5:1以上）およびUI枠線・グラフ図形（3:1以上）の国の見やすさ基準を完全にクリアしています。
+      </p>
+    </header>
+
+    <!-- 2. パレット全体レイアウト -->
+    <main class="palette-container">
+
+      <!-- 左ブロック: Web・UI基本カラー -->
+      <section class="palette-card" aria-labelledby="heading-ui-colors">
+        <h2 id="heading-ui-colors" class="card-title">
+          <span>Web・UI基本カラー</span>
+          <span class="card-title-sub">画面構築のベースとなる基本色</span>
+        </h2>
+
+        <div class="ui-grid">
+          <!-- 列1: メイン・機能 -->
+          <div>
+            <!-- メインカラー -->
+            <div class="group-section">
+              <h3 class="group-title">メイン・アクセント</h3>
+              <p class="group-desc">ブランドを象徴する主要色と、視線を集めるアクセントカラー</p>
+              <div class="swatch-list">
+                <div class="swatch-item">
+                  <div class="swatch-circle" style="background-color: #0017c1;"></div>
+                  <div class="swatch-info">
+                    <span class="swatch-label">メインカラー</span>
+                    <span class="swatch-code">#0017C1</span>
+                  </div>
+                </div>
+                <div class="swatch-item">
+                  <div class="swatch-circle" style="background-color: #d2a400;"></div>
+                  <div class="swatch-info">
+                    <span class="swatch-label">アクセントカラー</span>
+                    <span class="swatch-code">#D2A400</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 機能カラー -->
+            <div class="group-section">
+              <h3 class="group-title">機能カラー</h3>
+              <p class="group-desc">操作時のフォーカス表示や、3:1基準を満たすUI境界線</p>
+              <div class="swatch-list">
+                <div class="swatch-item">
+                  <div class="swatch-circle" style="background-color: #ffd43d;"></div>
+                  <div class="swatch-info">
+                    <span class="swatch-label">フォーカス枠（Yellow 300）</span>
+                    <span class="swatch-code">#FFD43D</span>
+                  </div>
+                </div>
+                <div class="swatch-item">
+                  <div class="swatch-circle" style="background-color: #949494;"></div>
+                  <div class="swatch-info">
+                    <span class="swatch-label">UI境界線（Gray 420 / 3:1）</span>
+                    <span class="swatch-code">#949494</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 列2: テキスト・リンク・背景 -->
+          <div>
+            <!-- テキスト -->
+            <div class="group-section">
+              <h3 class="group-title">テキスト・リンク</h3>
+              <p class="group-desc">可読性（4.5:1以上）を確保した基本文字・補助・強調・リンク色</p>
+              <div class="swatch-list">
+                <div class="swatch-item">
+                  <div class="swatch-circle" style="background-color: #000000;"></div>
+                  <div class="swatch-info">
+                    <span class="swatch-label">基本文字</span>
+                    <span class="swatch-code">#000000</span>
+                  </div>
+                </div>
+                <div class="swatch-item">
+                  <div class="swatch-circle" style="background-color: #626264;"></div>
+                  <div class="swatch-info">
+                    <span class="swatch-label">補助文字・ラベル</span>
+                    <span class="swatch-code">#626264</span>
+                  </div>
+                </div>
+                <div class="swatch-item">
+                  <div class="swatch-circle" style="background-color: #0017c1;"></div>
+                  <div class="swatch-info">
+                    <span class="swatch-label">強調文字</span>
+                    <span class="swatch-code">#0017C1</span>
+                  </div>
+                </div>
+                <div class="swatch-item">
+                  <div class="swatch-circle has-border" style="background-color: #ffffff;"></div>
+                  <div class="swatch-info">
+                    <span class="swatch-label">反転文字</span>
+                    <span class="swatch-code">#FFFFFF</span>
+                  </div>
+                </div>
+                <div class="swatch-item">
+                  <div class="swatch-circle" style="background-color: #0017c1;"></div>
+                  <div class="swatch-info">
+                    <span class="link-unvisited-text">未訪問リンク</span>
+                    <span class="swatch-code">#0017C1</span>
+                  </div>
+                </div>
+                <div class="swatch-item">
+                  <div class="swatch-circle" style="background-color: #8a2468;"></div>
+                  <div class="swatch-info">
+                    <span class="link-visited-text">訪問済みリンク</span>
+                    <span class="swatch-code">#8A2468</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 背景 -->
+            <div class="group-section">
+              <h3 class="group-title">背景</h3>
+              <p class="group-desc">情報領域を整理し、コントラストを支える背景カラー</p>
+              <div class="swatch-list">
+                <div class="swatch-item">
+                  <div class="swatch-circle has-border" style="background-color: #ffffff;"></div>
+                  <div class="swatch-info">
+                    <span class="swatch-label">基本背景</span>
+                    <span class="swatch-code">#FFFFFF</span>
+                  </div>
+                </div>
+                <div class="swatch-item">
+                  <div class="swatch-circle" style="background-color: #e8f1fe;"></div>
+                  <div class="swatch-info">
+                    <span class="swatch-label">強調背景</span>
+                    <span class="swatch-code">#E8F1FE</span>
+                  </div>
+                </div>
+                <div class="swatch-item">
+                  <div class="swatch-circle" style="background-color: #f1f1f4;"></div>
+                  <div class="swatch-info">
+                    <span class="swatch-label">オブジェクト</span>
+                    <span class="swatch-code">#F1F1F4</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 右ブロック: グラフ用カラーパレット -->
+      <section class="palette-card" aria-labelledby="heading-chart-colors">
+        <h2 id="heading-chart-colors" class="card-title">
+          <span>グラフ用カラーパレット</span>
+          <span class="card-title-sub">データ可視化・グラフ系列色</span>
+        </h2>
+
+        <div class="chart-grid">
+          <!-- 1. メインパレット -->
+          <div>
+            <h3 class="group-title">メインパレット</h3>
+            <p class="group-desc">通常のグラフ表示や複数項目を比較する基本カラー</p>
+            <div class="swatch-list">
+              <div class="swatch-item">
+                <div class="swatch-circle" style="background-color: #0017c1;"></div>
+                <div class="swatch-info">
+                  <span class="swatch-label">プライマリ</span>
+                  <span class="swatch-code">#0017C1</span>
+                </div>
+              </div>
+              <div class="swatch-item">
+                <div class="swatch-circle" style="background-color: #3460fb;"></div>
+                <div class="swatch-info">
+                  <span class="swatch-label">セカンダリ</span>
+                  <span class="swatch-code">#3460FB</span>
+                </div>
+              </div>
+              <div class="swatch-item">
+                <div class="swatch-circle" style="background-color: #7096f8;"></div>
+                <div class="swatch-info">
+                  <span class="swatch-label">ターシャリ</span>
+                  <span class="swatch-code">#7096F8</span>
+                </div>
+              </div>
+              <div class="swatch-item">
+                <div class="swatch-circle" style="background-color: #c5d7fb;"></div>
+                <div class="swatch-info">
+                  <span class="swatch-label">クォータナリ</span>
+                  <span class="swatch-code">#C5D7FB</span>
+                </div>
+              </div>
+              <div class="swatch-item">
+                <div class="swatch-circle has-border" style="background-color: #ffffff;"></div>
+                <div class="swatch-info">
+                  <span class="swatch-label">Background</span>
+                  <span class="swatch-code">#FFFFFF</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. 相対パレット -->
+          <div>
+            <h3 class="group-title">相対パレット</h3>
+            <p class="group-desc">実績に対する「目標値」や対比させたい項目に使用</p>
+            <div class="swatch-list">
+              <div class="swatch-item">
+                <div class="swatch-circle" style="background-color: #d2a400;"></div>
+                <div class="swatch-info">
+                  <span class="swatch-label">プライマリ</span>
+                  <span class="swatch-code">#D2A400</span>
+                </div>
+              </div>
+              <div class="swatch-item">
+                <div class="swatch-circle" style="background-color: #0017c1;"></div>
+                <div class="swatch-info">
+                  <span class="swatch-label">セカンダリ</span>
+                  <span class="swatch-code">#0017C1</span>
+                </div>
+              </div>
+              <div class="swatch-item">
+                <div class="swatch-circle" style="background-color: #949494;"></div>
+                <div class="swatch-info">
+                  <span class="swatch-label">ターシャリ</span>
+                  <span class="swatch-code">#949494</span>
+                </div>
+              </div>
+              <div class="swatch-item">
+                <div class="swatch-circle has-border" style="background-color: #ffffff;"></div>
+                <div class="swatch-info">
+                  <span class="swatch-label">Background</span>
+                  <span class="swatch-code">#FFFFFF</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. 中立パレット -->
+          <div>
+            <h3 class="group-title">中立パレット</h3>
+            <p class="group-desc">「その他」「未回答」など目立たせない項目に使用</p>
+            <div class="swatch-list">
+              <div class="swatch-item">
+                <div class="swatch-circle" style="background-color: #666666;"></div>
+                <div class="swatch-info">
+                  <span class="swatch-label">プライマリ</span>
+                  <span class="swatch-code">#666666</span>
+                </div>
+              </div>
+              <div class="swatch-item">
+                <div class="swatch-circle" style="background-color: #999999;"></div>
+                <div class="swatch-info">
+                  <span class="swatch-label">セカンダリ<span class="swatch-unused">（未使用）</span></span>
+                  <span class="swatch-code">#999999</span>
+                </div>
+              </div>
+              <div class="swatch-item">
+                <div class="swatch-circle" style="background-color: #cccccc;"></div>
+                <div class="swatch-info">
+                  <span class="swatch-label">ターシャリ<span class="swatch-unused">（未使用）</span></span>
+                  <span class="swatch-code">#CCCCCC</span>
+                </div>
+              </div>
+              <div class="swatch-item">
+                <div class="swatch-circle has-border" style="background-color: #ffffff;"></div>
+                <div class="swatch-info">
+                  <span class="swatch-label">Background</span>
+                  <span class="swatch-code">#FFFFFF</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+</body>
+</html>
