@@ -822,68 +822,7 @@
     }
 
     /* ==========================================================================
-       ブレークポイント・レスポンシブ対応（ローカルデザインシステム確定仕様：768pxの1か所のみ）
-       768px以上：1〜4カラム表示 / 768px未満：原則1カラムに再配置
-       ========================================================================== */
-    @media (max-width: 767.98px) {
-      .dads-footer { padding: var(--space-24); }
-      .dads-card { overflow-x: auto; }
-      .dads-card > svg { min-width: 460px; }
-      /* 2カラムグリッドを1カラムに再配置 */
-      .dads-grid-2,
-      .dads-grid-status-row {
-        grid-template-columns: 1fr;
-        gap: var(--space-24);
-      }
-
-      .dads-definition-grid,
-      .dads-meta-list {
-        grid-template-columns: 1fr;
-      }
-
-      .dads-chart-with-definitions {
-        grid-template-columns: 1fr;
-      }
-
-      /* ヒーローカードの1カラム化（余白ゼロで整列維持） */
-      .dads-hero-card {
-        grid-template-columns: 1fr;
-        gap: var(--space-24);
-        padding: 0;
-      }
-
-      /* 解説カードの1カラム化 */
-      .dads-insight-card {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 16px;
-      }
-      .dads-insight-card--reverse {
-        grid-template-columns: 1fr;
-      }
-      .dads-insight-card--reverse .dads-insight-visual { order: 0; }
-      .dads-insight-card--reverse .dads-insight-content { order: 1; }
-      .dads-insight-heading { justify-content: center; }
-      .dads-insight-text { min-height: 0; }
-
-      /* フィルター操作パネルの1カラム化 */
-      .dads-filter-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-
-      .dads-dashboard-layout {
-        grid-template-columns: 1fr;
-        padding: var(--space-24);
-        gap: var(--space-24);
-      }
-      .dads-dashboard-sidebar {
-        position: static;
-      }
-    }
-
-    /* ==========================================================================
-       ダッシュボード2カラムレイアウト（左サイドバー ＋ 右メインコンテンツ）
+       ダッシュボード2カラムレイアウト（PC基本スタイル：左サイドバー ＋ 右メインコンテンツ）
        ========================================================================== */
     .dads-dashboard-layout {
       max-width: 1440px;
@@ -932,6 +871,24 @@
       color: var(--dads-text-label);
     }
 
+    /* サイドバーのナビゲーション（details / summary によるアクセシブルな開閉設計） */
+    .dads-sidebar-details {
+      width: 100%;
+    }
+
+    /* PC表示時：常に展開表示し、summaryの標準矢印マーカーは非表示 */
+    .dads-sidebar-summary {
+      list-style: none;
+      cursor: default;
+    }
+    .dads-sidebar-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .dads-sidebar-summary-hint {
+      display: none; /* PCでは開閉ヒントを非表示 */
+    }
+
     .dads-sidebar-nav-title {
       font-size: 14px;
       font-weight: 700;
@@ -939,6 +896,7 @@
       letter-spacing: 0;
       color: var(--dads-text-label);
       margin-bottom: var(--space-8);
+      display: inline-block;
     }
 
     .dads-sidebar-nav-list {
@@ -982,6 +940,352 @@
     .dads-dashboard-main {
       min-width: 0;
     }
+
+    /* ==========================================================================
+       ブレークポイント・レスポンシブ対応（DADS公式・ローカルデザインシステム確定仕様）
+       768pxの1か所のみで分岐する「PC（768px以上）」と「スマホ（768px未満）」の2種類区分
+       ========================================================================== */
+    @media (max-width: 767.98px) {
+      /* 横揺れ・はみ出しの完全防止 */
+      html, body {
+        overflow-x: hidden;
+        width: 100%;
+      }
+
+      /* ダッシュボード全体：1カラム縦積みに再配置・左右余白はスマホ基準（16px） */
+      .dads-dashboard-layout {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 100%;
+        padding: var(--space-16);
+        gap: 20px;
+        overflow-x: hidden;
+      }
+
+      /* サイドバー：画面上部にコンパクト配置、固定解除 */
+      .dads-dashboard-sidebar {
+        position: static;
+        width: 100%;
+        padding: var(--space-16);
+        gap: var(--space-16);
+      }
+
+      .dads-sidebar-header {
+        padding-bottom: 12px;
+        gap: var(--space-8);
+      }
+
+      .dads-sidebar-title {
+        font-size: 18px;
+        line-height: 1.4;
+      }
+
+      .dads-sidebar-desc {
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      /* スマホ時のセクション移動：アコーディオン開閉可能に */
+      .dads-sidebar-summary {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        min-height: 44px;
+        padding: 10px var(--space-16);
+        background-color: var(--dads-bg-auxiliary);
+        border: 1px solid var(--dads-border-light);
+        border-radius: var(--dads-radius-card);
+        user-select: none;
+      }
+
+      .dads-sidebar-summary:focus-visible {
+        outline: 2px solid var(--dads-focus-outline-color-outer) !important;
+        outline-offset: 2px !important;
+      }
+
+      .dads-sidebar-summary-hint {
+        display: inline-block;
+        font-size: 12px;
+        font-weight: 400;
+        color: var(--dads-color-primary);
+      }
+
+      .dads-sidebar-nav-title {
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--dads-text-main);
+      }
+
+      .dads-sidebar-nav-list {
+        margin-top: var(--space-8);
+        gap: 4px;
+      }
+
+      .dads-sidebar-nav-link {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        padding: var(--space-8) var(--space-16);
+        font-size: 14px;
+      }
+
+      /* メインコンテンツエリア */
+      .dads-dashboard-main {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+      }
+
+      /* 注記バナー */
+      .dads-notice-banner {
+        font-size: 13px;
+        line-height: 1.6;
+        padding: var(--space-8) 12px;
+        margin-bottom: var(--space-24);
+        text-align: left;
+      }
+
+      /* ヒーローカード：1カラム縦積みに再配置 */
+      .dads-hero-card {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-bottom: var(--space-32);
+        padding: 0;
+      }
+
+      .dads-hero-title {
+        font-size: clamp(22px, 5.5vw, 26px);
+        line-height: 1.4;
+        margin-bottom: 12px;
+      }
+
+      .dads-hero-lead {
+        font-size: 14px;
+        line-height: 1.7;
+        margin-bottom: var(--space-16);
+      }
+
+      .dads-meta-badges {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-8);
+        width: 100%;
+      }
+
+      .dads-meta-badge-item {
+        width: 100%;
+        font-size: 13px;
+        padding: var(--space-8) 12px;
+      }
+
+      .dads-hero-img-wrap {
+        width: 100%;
+        text-align: center;
+        margin-top: var(--space-8);
+      }
+
+      .dads-hero-img-wrap img {
+        max-width: 240px;
+        height: auto;
+      }
+
+      /* 各セクションの余白と見出し */
+      .dads-section {
+        margin-bottom: var(--space-48);
+        scroll-margin-top: var(--space-16);
+      }
+
+      .dads-section-title {
+        font-size: 20px;
+        line-height: 1.4;
+      }
+
+      .dads-section-title--summary {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 12px var(--space-16);
+        font-size: 18px;
+      }
+
+      /* 2カラムグリッドを完全1カラムに再配置 */
+      .dads-grid-2,
+      .dads-grid-status-row {
+        grid-template-columns: 1fr;
+        gap: var(--space-16);
+        margin-bottom: var(--space-16);
+      }
+
+      /* カードコンポーネント */
+      .dads-card {
+        padding: var(--space-16);
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .dads-card-title {
+        font-size: 18px;
+        line-height: 1.4;
+      }
+
+      .dads-card-meta {
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      /* 図表と解説の横並びを1カラム化 */
+      .dads-chart-with-definitions {
+        grid-template-columns: 1fr;
+        gap: var(--space-16);
+      }
+
+      .dads-definition-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+      }
+
+      .dads-standalone-illustration {
+        padding: var(--space-8) 0 0;
+        justify-content: center;
+      }
+
+      .dads-standalone-illustration img {
+        max-height: 140px;
+      }
+
+      /* SVGグラフのスマホ自動追従：カード幅に自然にフィット */
+      .dads-card svg[viewBox],
+      .dads-status-chart {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        display: block;
+      }
+
+      /* フィルター操作パネルの1カラム化 */
+      .dads-filter-panel {
+        padding: var(--space-16);
+        margin-bottom: 20px;
+      }
+
+      .dads-filter-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .dads-filter-title {
+        font-size: 18px;
+      }
+
+      .dads-filter-header .dads-btn {
+        width: 100%;
+        justify-content: center;
+        min-height: 44px;
+      }
+
+      .dads-filter-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-16);
+      }
+
+      .dads-table-filter {
+        max-width: 100%;
+        margin: 0 0 var(--space-16);
+      }
+
+      .dads-select,
+      .dads-input-text {
+        min-height: 44px;
+        font-size: 16px; /* iOS自動ズーム防止 */
+      }
+
+      /* POINT解説カードの1カラム化（イラスト上部、本文下部） */
+      .dads-insight-card,
+      .dads-insight-card--bottom,
+      .dads-insight-card--reverse {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: left;
+        padding: var(--space-16);
+        gap: var(--space-16);
+        margin-top: var(--space-16);
+        margin-bottom: var(--space-16);
+      }
+
+      .dads-insight-visual {
+        order: 0 !important;
+        margin-bottom: 4px;
+      }
+
+      .dads-insight-visual img {
+        max-width: 72px;
+        height: auto;
+      }
+
+      .dads-insight-content {
+        order: 1 !important;
+        width: 100%;
+      }
+
+      .dads-insight-heading {
+        font-size: 18px;
+        justify-content: flex-start;
+        margin-bottom: var(--space-8);
+      }
+
+      .dads-insight-text {
+        min-height: auto;
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      /* テーブルの横スクロール担保 */
+      .dads-table-container {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin-top: var(--space-8);
+      }
+
+      .dads-table {
+        min-width: 520px;
+        font-size: 13px;
+      }
+
+      .dads-table th,
+      .dads-table td {
+        padding: var(--space-8) 12px;
+      }
+
+      /* メタ情報カード */
+      .dads-meta-card {
+        padding: var(--space-16);
+        margin-top: var(--space-24);
+      }
+
+      .dads-meta-title {
+        font-size: 18px;
+        margin-bottom: 12px;
+      }
+
+      .dads-meta-list {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      /* フッター */
+      .dads-footer {
+        padding: var(--space-32) var(--space-16);
+        margin-top: var(--space-48);
+        font-size: 13px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -997,17 +1301,22 @@
         <div class="dads-sidebar-title">中小企業のAI等の利活用に係る実態調査</div>
         <p class="dads-sidebar-desc">全国10,000社の実態調査（有効回答1,668社）に基づき、中小企業のAI利活用状況を可視化したダッシュボードです。</p>
       </div>
-      <nav aria-labelledby="sidebar-nav-heading">
-        <h2 id="sidebar-nav-heading" class="dads-sidebar-nav-title">セクション移動</h2>
-        <ul class="dads-sidebar-nav-list">
-          <li><a href="#sec-point-summary" class="dads-sidebar-nav-link is-active" aria-current="true">調査結果のポイント</a></li>
-          <li><a href="#sec-overview" class="dads-sidebar-nav-link">1. 調査対象と業種構成</a></li>
-          <li><a href="#sec-status" class="dads-sidebar-nav-link">2. AIの導入状況と活用業務</a></li>
-          <li><a href="#sec-purpose" class="dads-sidebar-nav-link">3. AIの導入目的</a></li>
-          <li><a href="#sec-effect" class="dads-sidebar-nav-link">4. AI・ITの導入効果</a></li>
-          <li><a href="#sec-needs" class="dads-sidebar-nav-link">5. 理解度・情報量と支援ニーズ</a></li>
-          <li><a href="#sec-meta" class="dads-sidebar-nav-link">調査概要（メタ情報）</a></li>
-        </ul>
+      <nav aria-labelledby="sidebar-nav-heading" class="dads-sidebar-nav">
+        <details class="dads-sidebar-details" open>
+          <summary class="dads-sidebar-summary">
+            <span id="sidebar-nav-heading" class="dads-sidebar-nav-title">セクション移動</span>
+            <span class="dads-sidebar-summary-hint">（タップで開閉）</span>
+          </summary>
+          <ul class="dads-sidebar-nav-list">
+            <li><a href="#sec-point-summary" class="dads-sidebar-nav-link is-active" aria-current="true">調査結果のポイント</a></li>
+            <li><a href="#sec-overview" class="dads-sidebar-nav-link">1. 調査対象と業種構成</a></li>
+            <li><a href="#sec-status" class="dads-sidebar-nav-link">2. AIの導入状況と活用業務</a></li>
+            <li><a href="#sec-purpose" class="dads-sidebar-nav-link">3. AIの導入目的</a></li>
+            <li><a href="#sec-effect" class="dads-sidebar-nav-link">4. AI・ITの導入効果</a></li>
+            <li><a href="#sec-needs" class="dads-sidebar-nav-link">5. 理解度・情報量と支援ニーズ</a></li>
+            <li><a href="#sec-meta" class="dads-sidebar-nav-link">調査概要（メタ情報）</a></li>
+          </ul>
+        </details>
       </nav>
     </aside>
 
@@ -1910,7 +2219,13 @@
 
     applyFilters();
 
-    // サイドバーナビゲーションのアクティブ状態切り替え
+    // サイドバーナビゲーションのアコーディオン・アクティブ状態切り替え
+    const sidebarDetails = document.querySelector('.dads-sidebar-details');
+    // スマホ表示時（768px未満）は初期状態で折りたたむ
+    if (sidebarDetails && window.innerWidth < 768) {
+      sidebarDetails.removeAttribute('open');
+    }
+
     const navLinks = document.querySelectorAll('.dads-sidebar-nav-link');
     navLinks.forEach(link => {
       link.addEventListener('click', () => {
@@ -1920,6 +2235,11 @@
         });
         link.classList.add('is-active');
         link.setAttribute('aria-current', 'true');
+
+        // スマホ表示時はリンク選択後に自動で折りたたむ
+        if (sidebarDetails && window.innerWidth < 768) {
+          sidebarDetails.removeAttribute('open');
+        }
       });
     });
   </script>
