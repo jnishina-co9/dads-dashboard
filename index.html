@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -611,6 +611,16 @@
       width: 16px;
       height: 16px;
       display: inline-block;
+    }
+
+    /* 横スクロール対応グラフコンテナ：アクセシビリティ対応（フォーカス表示） */
+    .dads-chart-scroll-container {
+      width: 100%;
+    }
+
+    .dads-chart-scroll-container:focus-visible {
+      outline: 2px solid var(--dads-focus-outline-color-outer);
+      outline-offset: 2px;
     }
 
     /* テーブルスタイル：DADS公式 Std-16N-170（16px / 400 / line-height: 1.7 / letter-spacing: 0.02em、見出しStd-16B-170） */
@@ -1245,6 +1255,42 @@
         line-height: 1.7;
       }
 
+      /* 横棒グラフの横スクロール担保（スマホでの縮小・視認性低下を防止） */
+      .dads-chart-scroll-container {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin-top: var(--space-8);
+        padding-bottom: 4px;
+      }
+
+      .dads-chart-scroll-container > svg {
+        width: auto !important;
+        max-width: none !important;
+        height: auto !important;
+        display: block;
+      }
+
+      .dads-chart-scroll-container--chart-3 > svg {
+        min-width: 530px !important;
+      }
+
+      .dads-chart-scroll-container--chart-4 > svg {
+        min-width: 470px !important;
+      }
+
+      .dads-chart-scroll-container--chart-5 > svg {
+        min-width: 610px !important;
+      }
+
+      .dads-chart-scroll-container--chart-7 > svg {
+        min-width: 580px !important;
+      }
+
+      .dads-chart-scroll-container--compact > svg {
+        min-width: 410px !important;
+      }
+
       /* テーブルの横スクロール担保 */
       .dads-table-container {
         width: 100%;
@@ -1636,7 +1682,8 @@
             <p class="dads-card-meta">AIを導入している企業における業務分野別の導入割合（項目ごとに回答母数が異なる / 単位：%）</p>
           </header>
           <div class="dads-chart-with-definitions">
-            <svg class="dads-status-chart" viewBox="0 0 640 170" role="img" aria-label="業務部門別のAI導入率。総務・管理部門68.3%、n=331。営業・販売・サービス部門60.3%、n=325。経営・企画部門58.5%、n=333。製造・生産部門34.9%、n=321">
+            <div class="dads-chart-scroll-container dads-chart-scroll-container--chart-3" tabindex="0" role="region" aria-label="業務部門別のAI導入率（横にスクロールできます）">
+            <svg class="dads-status-chart" viewBox="0 0 530 170" role="img" aria-label="業務部門別のAI導入率。総務・管理部門68.3%、n=331。営業・販売・サービス部門60.3%、n=325。経営・企画部門58.5%、n=333。製造・生産部門34.9%、n=321">
               <line x1="230" y1="15" x2="230" y2="155" stroke="var(--dads-border-high-contrast)" stroke-width="1.5" />
               <text x="215" y="39" text-anchor="end" font-size="14">総務・管理（n=331）</text>
               <rect x="230" y="25" width="246" height="18" fill="var(--dads-color-primary)" />
@@ -1651,6 +1698,7 @@
               <rect x="230" y="127" width="126" height="18" fill="var(--dads-color-light)" />
               <text x="364" y="141" font-size="14" font-weight="700">34.9</text>
             </svg>
+            </div>
             <div>
               <p class="dads-card-meta" style="font-weight: 700; color: var(--dads-text-main);">＜業務分野例＞</p>
               <dl class="dads-definition-grid">
@@ -1671,7 +1719,8 @@
             <p class="dads-card-meta">AI導入済み企業における利用ツール（n=322社 / 複数回答 / 単位：%）</p>
           </header>
           <div class="dads-chart-with-definitions">
-            <svg class="dads-status-chart" viewBox="0 0 640 238" role="img" aria-label="導入済みAIサービスの集合横棒グラフ。生成AI82.6%、音声認識29.8%、画像認識11.2%、需要予測8.1%、異常検知4.3%、その他7.5%">
+            <div class="dads-chart-scroll-container dads-chart-scroll-container--chart-4" tabindex="0" role="region" aria-label="導入済みAIサービスの種類（横にスクロールできます）">
+            <svg class="dads-status-chart" viewBox="108 0 470 238" role="img" aria-label="導入済みAIサービスの集合横棒グラフ。生成AI82.6%、音声認識29.8%、画像認識11.2%、需要予測8.1%、異常検知4.3%、その他7.5%">
               <line x1="230" y1="15" x2="230" y2="223" stroke="var(--dads-border-high-contrast)" stroke-width="1.5" />
 
               <!-- 生成AI 82.6% -->
@@ -1704,6 +1753,7 @@
               <rect x="230" y="195" width="27" height="18" fill="var(--dads-chart-series-gray)" />
               <text x="265" y="209" font-size="14" font-weight="700">7.5</text>
             </svg>
+            </div>
             <div>
               <p class="dads-card-meta" style="font-weight: 700; color: var(--dads-text-main);">＜AIサービス・ツール例＞</p>
               <dl class="dads-definition-grid">
@@ -1758,7 +1808,8 @@
           <div class="dads-legend">
             <div class="dads-legend-item"><span class="dads-legend-color" style="background: var(--dads-color-primary);"></span><span>AI導入企業の回答割合</span></div>
           </div>
-          <svg viewBox="0 0 680 298" style="width: 100%; max-width: 760px; height: auto;" role="img" aria-label="AIの導入目的。業務効率化87.0%、品質向上32.3%、人手不足対応31.7%、付加価値創出24.5%、エラー・ミス軽減24.2%、売上拡大22.1%、コスト削減14.8%、その他2.7%。複数回答">
+          <div class="dads-chart-scroll-container dads-chart-scroll-container--chart-5" tabindex="0" role="region" aria-label="AIの導入目的（横にスクロールできます）">
+          <svg viewBox="38 0 610 298" style="width: 100%; max-width: 760px; height: auto;" role="img" aria-label="AIの導入目的。業務効率化87.0%、品質向上32.3%、人手不足対応31.7%、付加価値創出24.5%、エラー・ミス軽減24.2%、売上拡大22.1%、コスト削減14.8%、その他2.7%。複数回答">
             <line x1="195" y1="12" x2="195" y2="286" stroke="var(--dads-border-high-contrast)" stroke-width="1.5" />
 
             <!-- 業務効率化 -->
@@ -1801,6 +1852,7 @@
             <rect x="195" y="256" width="12" height="18" fill="var(--dads-color-primary)" />
             <text x="217" y="270" font-size="14" font-weight="700">2.7</text>
           </svg>
+          </div>
         </article>
 
         <!-- 図表6：売上推移別AIの導入目的（全幅カードでゆったり表示） -->
@@ -1921,7 +1973,8 @@
           <div class="dads-legend-item"><span class="dads-legend-color" style="background: var(--dads-color-primary);"></span><span>AIの効果あり</span></div>
           <div class="dads-legend-item"><span class="dads-legend-color" style="background: var(--dads-color-accent);"></span><span>ITの効果あり</span></div>
         </div>
-        <svg viewBox="0 0 680 320" style="width: 100%; max-width: 760px; height: auto;" role="img" aria-label="AIとITの導入効果比較。業務効率化AI83.2%対IT89.1%、人手不足対応33.9%対32.3%、品質向上30.6%対24.6%、付加価値創出22.3%対7.4%、エラーミス軽減21.4%対39.8%、売上拡大17.4%対11.6%、コスト削減13.1%対17.8%、その他3.1%対1.9%">
+        <div class="dads-chart-scroll-container dads-chart-scroll-container--chart-7" tabindex="0" role="region" aria-label="AI・ITの導入効果別比較（横にスクロールできます）">
+        <svg viewBox="38 0 580 320" style="width: 100%; max-width: 760px; height: auto;" role="img" aria-label="AIとITの導入効果比較。業務効率化AI83.2%対IT89.1%、人手不足対応33.9%対32.3%、品質向上30.6%対24.6%、付加価値創出22.3%対7.4%、エラーミス軽減21.4%対39.8%、売上拡大17.4%対11.6%、コスト削減13.1%対17.8%、その他3.1%対1.9%">
           <line x1="195" y1="12" x2="195" y2="308" stroke="var(--dads-border-high-contrast)" stroke-width="1.5" />
 
           <!-- 業務効率化 -->
@@ -1980,6 +2033,7 @@
           <text x="216" y="288" font-size="14" font-weight="700">3.1</text>
           <text x="211" y="302" font-size="14">1.9</text>
         </svg>
+        </div>
       </article>
 
       <!-- セクション下部 POINTカード（全幅） -->
@@ -2025,7 +2079,8 @@
             <div class="dads-legend-item"><span class="dads-legend-color" style="background: var(--dads-color-pale);"></span><span>あまりない</span></div>
             <div class="dads-legend-item"><span class="dads-legend-color" style="background: var(--dads-chart-series-light);"></span><span>全くない</span></div>
           </div>
-          <svg viewBox="0 0 460 165" style="width: 100%; height: auto;" role="img" aria-label="社内理解度や情報量の100%積み上げ横棒グラフ。AI必要性の理解は10.0%、35.1%、33.9%、21.0%。ITリテラシーは3.3%、19.1%、45.0%、32.6%。製品選定情報は3.3%、16.9%、46.7%、33.1%。活用事例情報は2.6%、14.2%、49.0%、34.3%">
+          <div class="dads-chart-scroll-container dads-chart-scroll-container--compact" tabindex="0" role="region" aria-label="社内の理解度や情報量の充足状況（横にスクロールできます）">
+          <svg viewBox="22 0 410 165" style="width: 100%; height: auto;" role="img" aria-label="社内理解度や情報量の100%積み上げ横棒グラフ。AI必要性の理解は10.0%、35.1%、33.9%、21.0%。ITリテラシーは3.3%、19.1%、45.0%、32.6%。製品選定情報は3.3%、16.9%、46.7%、33.1%。活用事例情報は2.6%、14.2%、49.0%、34.3%">
             <line x1="140" y1="12" x2="140" y2="152" stroke="var(--dads-border-high-contrast)" stroke-width="1.5" />
 
             <!-- 1. 必要性の理解 (とても10.0%, やや35.1%, あまり33.9%, 全く21.0%) -->
@@ -2076,6 +2131,7 @@
             <text x="255.5" y="135" text-anchor="middle" font-size="14">49.0</text>
             <text x="372" y="135" text-anchor="middle" font-size="14">34.3</text>
           </svg>
+          </div>
           <p class="dads-metric-note">※理解あり計：45.1%／製品選定情報の不足計：79.8%／活用事例情報の不足計：83.3%</p>
         </article>
 
@@ -2090,7 +2146,8 @@
             <div class="dads-legend-item"><span class="dads-legend-color" style="background: var(--dads-color-primary);"></span><span>必要である</span></div>
             <div class="dads-legend-item"><span class="dads-legend-color" style="background: var(--dads-chart-series-light);"></span><span>必要でない</span></div>
           </div>
-          <svg viewBox="0 0 460 198" style="width: 100%; height: auto;" role="img" aria-label="導入を推進するために必要な公的支援。導入費用などの助成77.9%、導入事例などの情報提供70.5%、従業員向けの教育・研修67.7%、試行導入などの機会61.3%、専門家の派遣や導入相談59.8%が必要であると回答">
+          <div class="dads-chart-scroll-container dads-chart-scroll-container--compact" tabindex="0" role="region" aria-label="導入を推進するために必要な公的支援（横にスクロールできます）">
+          <svg viewBox="24 0 410 198" style="width: 100%; height: auto;" role="img" aria-label="導入を推進するために必要な公的支援。導入費用などの助成77.9%、導入事例などの情報提供70.5%、従業員向けの教育・研修67.7%、試行導入などの機会61.3%、専門家の派遣や導入相談59.8%が必要であると回答">
             <line x1="140" y1="12" x2="140" y2="186" stroke="var(--dads-border-high-contrast)" stroke-width="1.5" />
 
             <!-- 1. 導入費用などの助成 (77.9% / 22.1%) -->
@@ -2128,6 +2185,7 @@
             <text x="223.5" y="169" fill="#ffffff" font-size="14" font-weight="700">59.8</text>
             <text x="363.5" y="169" fill="var(--dads-text-main)" font-size="14">40.2</text>
           </svg>
+          </div>
           <p class="dads-metric-note">※全5項目で「必要である」が約6割〜8割。費用助成（77.9%）に次いで事例提供（70.5%）の需要が高くなっています。</p>
         </article>
       </div>
